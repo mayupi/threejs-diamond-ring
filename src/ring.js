@@ -229,6 +229,12 @@ export default class Ring {
   }
 
   _loadModel() {
+
+    const normalTexture = new THREE.TextureLoader().load('textures/normal.jpg')
+    normalTexture.wrapS = THREE.RepeatWrapping;
+    normalTexture.wrapT = THREE.RepeatWrapping;
+    normalTexture.repeat.set(this.params.normalRepeat, this.params.normalRepeat)
+
     this.metalMaterial = new THREE.MeshPhysicalMaterial({
       color: 0xffffff,
       metalness: 0.9,
@@ -252,12 +258,6 @@ export default class Ring {
       envMap: this.hdrCubeRenderTarget.texture,
       envMapIntensity: this.params.envMapIntensity,
     })
-
-            
-    const normalTexture = new THREE.TextureLoader().load('textures/normal.jpg')
-    normalTexture.wrapS = THREE.RepeatWrapping;
-    normalTexture.wrapT = THREE.RepeatWrapping;
-    normalTexture.repeat.set(this.params.normalRepeat, this.params.normalRepeat)
 
     const loader = new GLTFLoader()
     loader.load('models/ring.glb', gltf => {
